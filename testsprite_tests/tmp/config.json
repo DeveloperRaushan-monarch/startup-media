@@ -1,0 +1,24 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "executionArgs": {
+    "projectName": "startup media",
+    "projectPath": "/Users/monarchraushan/Desktop/startup media",
+    "testIds": [
+      "TC001",
+      "TC002",
+      "TC004",
+      "TC005",
+      "TC006"
+    ],
+    "additionalInstruction": "Final Verification of 5 UI tests: TC001, TC002, TC004, TC005, TC006. Confirm Pagination UI is visible and /stories/[slug] correctly redirects and shows content.",
+    "serverMode": "production",
+    "envs": {
+      "API_KEY": "sk-user-FvBYw7iTci4Rk46ccBT2i4CZQbiUzoYtMAozzbDYlPBPe4v8bjKvyzLLMqgt2Ny53nM7yDvABtlqvXHhykIl84S-OxTW3BQTbr40xGtvWXmKNkZ-KGy7fauRDrAXsIaq1HE"
+    }
+  },
+  "serverPort": 52242,
+  "proxy": "http://3ca81116-be6b-4959-af4a-d441a557c9de:8v9a6QF3qIMzVv1mrcxTBaT9x9c7T64y@tun.testsprite.com:8080"
+}

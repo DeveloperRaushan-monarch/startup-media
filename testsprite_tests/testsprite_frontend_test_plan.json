@@ -1,0 +1,356 @@
+[
+  {
+    "id": "TC001",
+    "title": "Discover stories and open an article from the homepage",
+    "description": "Verifies a visitor can load the homepage, view featured and trending sections, browse the latest list, and open a story to reach a readable article detail page.",
+    "category": "Story Browsing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the featured hero section"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the trending stories section"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the latest stories list"
+      },
+      {
+        "type": "action",
+        "description": "Click a story card from the latest list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an article detail view is displayed with readable story content"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Open a story from the featured hero",
+    "description": "Verifies a visitor can open the featured hero story and read its detail page.",
+    "category": "Story Browsing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click the featured hero story"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an article detail view is displayed with readable story content"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Continue browsing after reading an article",
+    "description": "Verifies a visitor can open an article from the homepage, return to the homepage via in-app navigation, and continue browsing stories.",
+    "category": "Story Browsing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click a story card from the trending section"
+      },
+      {
+        "type": "action",
+        "description": "Click the in-app navigation to return to the home landing"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the latest stories list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the latest stories list is displayed for continued browsing"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Paginate the latest stories list",
+    "description": "Verifies a visitor can move between pages of the latest stories list and see the list update accordingly.",
+    "category": "Story Browsing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the latest stories list"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the next page of the latest stories list"
+      },
+      {
+        "type": "action",
+        "description": "Navigate back to the previous page of the latest stories list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the latest stories list is displayed after pagination changes"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Compare multiple stories and keep browsing stable",
+    "description": "Verifies a visitor can open multiple stories from the homepage, return between them using in-app navigation, and still browse lists without breaking.",
+    "category": "Story Browsing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click a story card from the latest stories list"
+      },
+      {
+        "type": "action",
+        "description": "Click the in-app navigation to return to the home landing"
+      },
+      {
+        "type": "action",
+        "description": "Click a different story card from the trending section"
+      },
+      {
+        "type": "action",
+        "description": "Click the in-app navigation to return to the home landing"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify featured, trending, and latest sections are displayed and usable"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Newly created article is discoverable and readable from public browsing",
+    "description": "Verifies an admin-created article can be discovered from the homepage lists and opened to a readable article detail page.",
+    "category": "Admin Article Submission",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/editor"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"New Public Article\" into the title field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"new-public-article\" into the slug field"
+      },
+      {
+        "type": "action",
+        "description": "Select a category"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Excerpt for public discovery\" into the excerpt field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Content for public discovery\" into the content field"
+      },
+      {
+        "type": "action",
+        "description": "Upload a valid image file in the cover image field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the article form"
+      },
+      {
+        "type": "action",
+        "description": "Click the in-app navigation to go to the home landing"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the latest stories list"
+      },
+      {
+        "type": "action",
+        "description": "Click the story card for \"New Public Article\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the article detail view is displayed for the newly created article"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC007",
+    "title": "Submit a new article with all required fields and cover image",
+    "description": "Verifies an admin can complete the editor form including a cover image and submit successfully to see a saved confirmation state.",
+    "category": "Admin Article Submission",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/editor"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Test Article Title\" into the title field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"test-article-slug\" into the slug field"
+      },
+      {
+        "type": "action",
+        "description": "Select a category"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Test excerpt\" into the excerpt field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Test content body\" into the content field"
+      },
+      {
+        "type": "action",
+        "description": "Upload a valid image file in the cover image field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the article form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a saved or published confirmation state is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC008",
+    "title": "Navigate to About and Contact pages",
+    "description": "Verifies a visitor can reach the About and Contact pages and see their main content render.",
+    "category": "Story Browsing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the About page"
+      },
+      {
+        "type": "action",
+        "description": "Click the in-app navigation link to the Contact page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the contact page main content is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC009",
+    "title": "Correct a missing slug and submit successfully",
+    "description": "Verifies an admin can fix a missing slug after validation and submit successfully to reach a saved confirmation state.",
+    "category": "Admin Article Submission",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/editor"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Fix Slug Then Submit\" into the title field"
+      },
+      {
+        "type": "action",
+        "description": "Leave the slug field empty"
+      },
+      {
+        "type": "action",
+        "description": "Submit the article form"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"fix-slug-then-submit\" into the slug field"
+      },
+      {
+        "type": "action",
+        "description": "Select a category"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Excerpt\" into the excerpt field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Content\" into the content field"
+      },
+      {
+        "type": "action",
+        "description": "Upload a valid image file in the cover image field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the article form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a saved or published confirmation state is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC010",
+    "title": "Block submission when slug is missing",
+    "description": "Verifies the editor prevents submission when the slug is empty and shows a validation error.",
+    "category": "Admin Article Submission",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/editor"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Title Without Slug\" into the title field"
+      },
+      {
+        "type": "action",
+        "description": "Leave the slug field empty"
+      },
+      {
+        "type": "action",
+        "description": "Submit the article form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a slug required validation error is visible"
+      }
+    ],
+    "priority": "Low"
+  }
+]

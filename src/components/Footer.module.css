@@ -1,0 +1,87 @@
+.footer {
+  background: var(--bg-deep);
+  padding-top: 80px;
+  border-top: 1px solid rgba(73, 72, 71, 0.15);
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  flex-wrap: wrap;
+  padding-bottom: 60px;
+}
+
+.brand {
+  max-width: 320px;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.tagline {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.links {
+  display: flex;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.col h4 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.col a {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.col a:hover {
+  color: var(--accent-light);
+}
+
+.bottom {
+  padding: 24px 0;
+  border-top: 1px solid rgba(73, 72, 71, 0.15);
+}
+
+.bottom p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .inner {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .links {
+    gap: 36px;
+  }
+}

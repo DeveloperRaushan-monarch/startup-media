@@ -1,0 +1,109 @@
+[
+  {
+    "slug": "new-public-article",
+    "image": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80",
+    "category": "Startup",
+    "title": "New Public Article",
+    "excerpt": "Excerpt for public discovery",
+    "content": "Content for public discovery",
+    "readTime": "5 min",
+    "date": "Apr 7, 2026",
+    "trending": false
+  },
+  {
+    "slug": "test-article-f0933e5d-8b97-46d2-af3d-53c2fe99dd39",
+    "image": "/uploads/1775560680497-cover.png",
+    "category": "Tech",
+    "title": "Test Article Title",
+    "excerpt": "This is a test excerpt for the article.",
+    "content": "This is the detailed content of the test article.",
+    "readTime": "5 min",
+    "date": "Apr 7, 2026",
+    "trending": false
+  },
+  {
+    "slug": "test-article-752cac86-53b1-45cc-ad51-b2e9bd350208",
+    "image": "/uploads/1775560640772-cover.png",
+    "category": "Tech",
+    "title": "Test Article Title",
+    "excerpt": "This is a test excerpt for the article.",
+    "content": "This is the full content of the test article.",
+    "readTime": "5 min",
+    "date": "Apr 7, 2026",
+    "trending": false
+  },
+  {
+    "slug": "test-article-fdca52fb-e22b-4847-b6d1-96894b924df6",
+    "image": "/uploads/1775560466448-cover.png",
+    "category": "Tech",
+    "title": "Test Article Title",
+    "excerpt": "This is a test article excerpt.",
+    "content": "This is the detailed content of the test article.",
+    "readTime": "5 min",
+    "date": "Apr 7, 2026",
+    "trending": false
+  },
+  {
+    "slug": "21-year-old-built-1m-app",
+    "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
+    "category": "Tech",
+    "title": "This 21-Year-Old Just Built a $1M App — From His Dorm Room",
+    "excerpt": "No funding. No co-founder. Just a laptop and an obsession with solving one problem nobody else saw.",
+    "content": "## The Origins\n\nIt all started with a single line of code in a cramped dorm room...",
+    "readTime": "5 min",
+    "date": "Oct 24, 2023",
+    "trending": true
+  },
+  {
+    "slug": "fired-then-funded",
+    "image": "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80",
+    "category": "Startup",
+    "title": "She Got Fired on Monday. By Friday, She Had $500K in Funding.",
+    "excerpt": "The rejection letter that turned into a pitch deck that turned into a term sheet.",
+    "content": "When Alice got the call from HR, she didn't panic. She pulled out her iPad...",
+    "readTime": "7 min",
+    "date": "Oct 22, 2023",
+    "trending": true
+  },
+  {
+    "slug": "chai-stall-to-saas",
+    "image": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80",
+    "category": "Small Business",
+    "title": "From Chai Stall to SaaS: The Story No MBA Will Teach You",
+    "excerpt": "He couldn't spell 'venture capital' but he understood unit economics better than most founders.",
+    "content": "Everyone loves a good rags-to-riches story, but this one involves actual code...",
+    "readTime": "6 min",
+    "date": "Oct 21, 2023",
+    "trending": true
+  },
+  {
+    "slug": "college-dropout-ai-startup",
+    "image": "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
+    "category": "Student",
+    "title": "Why This College Dropout's AI Startup Is Scaring Big Tech",
+    "excerpt": "Three students, a shared GPU, and a model that outperforms billion-dollar labs.",
+    "content": "It took them 7 days to train the model, and 2 days to secure a seed round.",
+    "readTime": "8 min",
+    "date": "Oct 20, 2023"
+  },
+  {
+    "slug": "bootstrapped-to-10m",
+    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    "category": "Tech",
+    "title": "Bootstrapped to $10M ARR: Zero Investors, Zero Regrets",
+    "excerpt": "The founder who said no to every VC and built a cash machine instead.",
+    "content": "VCs still email him every week. He replies with a screenshot of his MRR.",
+    "readTime": "6 min",
+    "date": "Oct 18, 2023"
+  },
+  {
+    "slug": "bakery-that-went-global",
+    "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+    "category": "Small Business",
+    "title": "A Small-Town Bakery That Now Ships to 14 Countries",
+    "excerpt": "One Instagram reel changed everything. Here's the playbook she used.",
+    "content": "She thought the order was spam. Then the payment cleared.",
+    "readTime": "4 min",
+    "date": "Oct 15, 2023"
+  }
+]

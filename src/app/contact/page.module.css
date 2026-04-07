@@ -1,0 +1,230 @@
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  padding-top: 160px;
+  padding-bottom: 80px;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 60% 20%, rgba(255, 107, 0, 0.06) 0%, transparent 60%),
+    var(--bg);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+
+.heroTitle span {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSub {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ===== FEATURED CTA ===== */
+.featuredSection {
+  background: var(--bg);
+  padding-top: 0;
+}
+
+.featuredCard {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  padding: 64px;
+  text-align: center;
+  border: 1px solid rgba(255, 107, 0, 0.2);
+  overflow: hidden;
+}
+
+.featuredGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255, 107, 0, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.featuredEmoji {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.featuredTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.featuredSub {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+/* ===== FORM ===== */
+.formSection {
+  background: var(--bg-surface);
+}
+
+.formCard {
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  padding: 56px;
+  border: 1px solid rgba(73, 72, 71, 0.15);
+}
+
+.formTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.field input,
+.field select,
+.field textarea {
+  padding: 14px 18px;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  border: 1px solid rgba(73, 72, 71, 0.3);
+  transition: border-color var(--transition-normal);
+  resize: vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--accent);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.field select {
+  appearance: none;
+  cursor: pointer;
+}
+
+/* ===== CONTACT INFO ===== */
+.infoSection {
+  background: var(--bg);
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.infoItem {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  text-align: center;
+  border: 1px solid rgba(73, 72, 71, 0.15);
+  transition: all var(--transition-normal);
+}
+
+.infoItem:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 107, 0, 0.2);
+}
+
+.infoIcon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.infoItem h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.infoItem p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 50px;
+  }
+  .featuredCard {
+    padding: 40px 24px;
+  }
+  .formCard {
+    padding: 32px 20px;
+  }
+  .row {
+    grid-template-columns: 1fr;
+  }
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+}

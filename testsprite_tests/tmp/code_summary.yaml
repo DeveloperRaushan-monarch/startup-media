@@ -1,0 +1,60 @@
+version: "2"
+type: frontend
+tech_stack:
+  - typescript
+  - next.js
+  - react
+  - css-modules
+routes:
+  - path: /
+    file: src/app/page.tsx
+    auth_required: false
+    description: Home page with featured, trending and latest stories
+  - path: /about
+    file: src/app/about/page.tsx
+    auth_required: false
+    description: About page for StartupMedia
+  - path: /contact
+    file: src/app/contact/page.tsx
+    auth_required: false
+    description: Contact page with form and team info
+  - path: /article/[slug]
+    file: src/app/article/[slug]/page.tsx
+    auth_required: false
+    description: Individual story detail page
+  - path: /admin/editor
+    file: src/app/admin/editor/page.tsx
+    auth_required: false
+    description: Admin article creation and editor page
+features:
+  - name: Story Browsing
+    description: Users can explore stories by trending, featured, and latest categories on the homepage.
+    files:
+      - src/app/page.tsx
+      - src/components/StoryCard.tsx
+    entry_route: /
+    user_interactions:
+      - Landing on home page to see featured hero story
+      - Scrolling through trending stories section
+      - Browsing latest stories in a paginated list
+      - Opening a story by clicking on its card
+    api_calls:
+      - method: GET
+        endpoint: /api/articles
+  - name: Admin Article Submission
+    description: Administrators can draft and publish new articles with image uploads.
+    files:
+      - src/app/admin/editor/page.tsx
+      - src/app/api/articles/route.ts
+      - src/app/actions.ts
+    entry_route: /admin/editor
+    user_interactions:
+      - Filling out article title and slug
+      - Selecting a category
+      - Adding content and excerpt
+      - Uploading a cover image
+      - Submitting the form to save the article
+    api_calls:
+      - method: POST
+        endpoint: /api/articles
+known_limitations: []
