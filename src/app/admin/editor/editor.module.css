@@ -95,8 +95,22 @@
 }
 
 @media (max-width: 640px) {
+  .editorContainer {
+    padding: 2rem 1rem;
+  }
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
   .row {
     grid-template-columns: 1fr;
+  }
+  .titleInput {
+    font-size: 1.8rem;
+  }
+  .uploadPlaceholder {
+    padding: 2rem 1rem;
   }
 }
 

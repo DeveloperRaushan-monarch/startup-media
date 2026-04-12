@@ -1,23 +1,43 @@
-/* ===== SCROLL PROGRESS ===== */
+/* ═══════════════════════════════════════════════
+   ARTICLE PAGE — Full Animation Suite
+═══════════════════════════════════════════════ */
+
+/* ── Vertical Scroll Progress Bar ―――――――――――――― */
 .progressBar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 3px;
-  height: 100%;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
   z-index: 999;
-  background: rgba(73, 72, 71, 0.15);
+  background: rgba(73,72,71,0.12);
 }
 
 .progressFill {
   width: 100%;
   background: var(--accent-gradient);
-  border-radius: 0 0 2px 2px;
+  border-radius: 0 0 3px 3px;
   transition: height 0.1s linear;
-  box-shadow: 0 0 12px var(--accent-glow);
+  box-shadow: 0 0 14px rgba(255,107,0,0.55), 2px 0 20px rgba(255,107,0,0.2);
+  position: relative;
 }
 
-/* ===== HERO ===== */
+/* Glow tip at leading edge */
+.progressFill::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: -2px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(255,107,0,0.9);
+  animation: tipPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes tipPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(255,107,0,0.8); transform: scale(1); }
+  50%       { box-shadow: 0 0 20px rgba(255,107,0,1); transform: scale(1.4); }
+}
+
+/* ── Hero ──────────────────────────────────────── */
 .hero {
   position: relative;
   min-height: 70vh;
@@ -29,28 +49,47 @@
 .heroImage {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: cover;
+  animation: slowZoom 25s ease-out forwards;
+  will-change: transform;
 }
 
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.18); }
+}
+
+/* color grade shift as you read */
 .heroOverlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
     var(--bg) 0%,
-    rgba(10, 10, 10, 0.85) 40%,
-    rgba(10, 10, 10, 0.4) 100%
+    rgba(10,10,10,0.88) 40%,
+    rgba(10,10,10,0.35) 100%
   );
+  animation: overlayPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes overlayPulse {
+  from { opacity: 0.9; }
+  to   { opacity: 1; }
 }
 
 .heroContent {
   position: relative;
   z-index: 1;
   padding-bottom: 80px;
-  padding-top: 200px;
+  padding-top: 240px; /* Increased from 200px to avoid navbar overlap */
   max-width: 800px;
+  animation: heroContentIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+@keyframes heroContentIn {
+  from { opacity: 0; transform: translateY(50px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .heroTitle {
@@ -60,6 +99,12 @@
   letter-spacing: -0.03em;
   margin: 16px 0 20px;
   color: var(--text-primary);
+  animation: titleIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+@keyframes titleIn {
+  from { opacity: 0; transform: translateY(30px) skewY(1deg); }
+  to   { opacity: 1; transform: translateY(0) skewY(0deg); }
 }
 
 .heroMeta {
@@ -69,35 +114,117 @@
   font-size: 0.85rem;
   color: var(--text-secondary);
   flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .dot {
   color: var(--accent);
+  animation: dotBlink 2s ease-in-out infinite;
 }
 
-/* ===== ARTICLE ===== */
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ── Article body ─────────────────────────────── */
 .article {
-  padding: 80px 0 60px;
+  padding: 80px 0 100px;
+  position: relative;
+  transition: opacity 0.8s ease;
 }
 
 .articleInner {
-  max-width: var(--reading-width);
+  max-width: 720px; /* Optimized reading width */
   margin: 0 auto;
   padding: 0 24px;
 }
 
+/* Paragraph fade-in via CSS */
 .articleInner p {
-  font-size: 1.1rem;
-  line-height: 1.9;
+  font-size: clamp(1.1rem, 1.2vw, 1.25rem);
+  line-height: 2.1;
   color: var(--text-secondary);
-  margin-bottom: 28px;
+  margin-bottom: 32px;
+  transition: all 0.4s ease;
+  letter-spacing: -0.003em;
 }
 
+.articleInner p:hover { 
+  color: var(--text-primary); 
+  transform: translateX(4px);
+}
+
+.articleInner h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 64px 0 24px;
+  letter-spacing: -0.02em;
+}
+
+.articleInner ul {
+  margin: 24px 0 40px;
+  padding-left: 20px;
+}
+
+.articleInner li {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  position: relative;
+  list-style: none;
+}
+
+.articleInner li::before {
+  content: '→';
+  position: absolute;
+  left: -28px;
+  color: var(--accent);
+  font-weight: 900;
+}
+
+/* ── Pull Quote ───────────────────────────────── */
 .pullQuote {
-  margin: 48px 0;
-  padding: 28px 0 28px 28px;
+  margin: 56px 0;
+  padding: 32px 0 32px 32px;
   border-left: 3px solid var(--accent);
   position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(255,107,0,0.04) 0%, transparent 50%);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+/* Animated left bar */
+.pullQuote::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--accent-gradient);
+  animation: barGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes barGlow {
+  from { box-shadow: none; }
+  to   { box-shadow: 0 0 18px rgba(255,107,0,0.7); }
+}
+
+/* Sweep shimmer */
+.pullQuote::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,107,0,0.04) 50%, transparent 60%);
+  animation: quoteSweep 5s ease-in-out infinite;
+}
+
+@keyframes quoteSweep {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  20%  { opacity: 1; }
+  70%  { transform: translateX(100%); opacity: 0; }
+  100% { transform: translateX(100%); opacity: 0; }
 }
 
 .pullQuote p {
@@ -105,13 +232,35 @@
   font-weight: 600;
   font-style: italic;
   color: var(--text-primary) !important;
-  line-height: 1.6 !important;
+  line-height: 1.65 !important;
   margin-bottom: 0 !important;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
 }
 
-/* ===== RELATED ===== */
+.pullQuote:hover p { transform: translateX(4px); }
+
+/* ── Related / Read Next ──────────────────────── */
 .readNextSection {
   background: var(--bg-surface);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top stripe */
+.readNextSection::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent-gradient);
+  animation: lineGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes lineGlow {
+  from { box-shadow: none; }
+  to   { box-shadow: 0 0 20px rgba(255,107,0,0.6); }
 }
 
 .relatedGrid {
@@ -121,60 +270,32 @@
   margin-top: 40px;
 }
 
+/* ── Shared ───────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ───────────────────────────────── */
 @media (max-width: 1024px) {
-  .heroContent {
-    padding-top: 180px;
-    padding-bottom: 60px;
-  }
-  .relatedGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .heroContent { padding-top: 180px; padding-bottom: 60px; }
+  .relatedGrid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-  .hero {
-    min-height: 50vh;
-  }
-  .heroContent {
-    padding-bottom: 40px;
-    padding-top: 120px;
-  }
-  .heroTitle {
-    font-size: 1.8rem;
-    margin: 12px 0 16px;
-  }
-  .article {
-    padding: 40px 0 30px;
-  }
-  .articleInner {
-    padding: 0 16px;
-  }
-  .articleInner p {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    margin-bottom: 24px;
-  }
-  .pullQuote {
-    margin: 36px 0;
-    padding: 20px 0 20px 20px;
-  }
-  .pullQuote p {
-    font-size: 1.15rem !important;
-  }
-  .relatedGrid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+  .hero { min-height: 50vh; }
+  .heroContent { padding-bottom: 40px; padding-top: 120px; }
+  .heroTitle { font-size: 1.8rem; margin: 12px 0 16px; }
+  .article { padding: 40px 0 30px; }
+  .articleInner { padding: 0 16px; }
+  .articleInner p { font-size: 1.05rem; line-height: 1.82; margin-bottom: 24px; }
+  .pullQuote { margin: 36px 0; padding: 20px 0 20px 20px; }
+  .pullQuote p { font-size: 1.15rem !important; }
+  .relatedGrid { grid-template-columns: 1fr; gap: 16px; }
 }
 
 @media (max-width: 480px) {
-  .progressBar {
-    width: 2px;
-  }
-  .heroTitle {
-    font-size: 1.6rem;
-  }
-  .heroMeta {
-    font-size: 0.75rem;
-  }
+  .progressBar { width: 3px; }
+  .heroTitle { font-size: 1.6rem; }
+  .heroMeta { font-size: 0.75rem; }
 }

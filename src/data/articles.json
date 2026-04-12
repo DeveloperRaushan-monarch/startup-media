@@ -1,58 +1,15 @@
 [
   {
-    "slug": "new-public-article",
-    "image": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80",
-    "category": "Startup",
-    "title": "New Public Article",
-    "excerpt": "Excerpt for public discovery",
-    "content": "Content for public discovery",
-    "readTime": "5 min",
-    "date": "Apr 7, 2026",
-    "trending": false
-  },
-  {
-    "slug": "test-article-f0933e5d-8b97-46d2-af3d-53c2fe99dd39",
-    "image": "/uploads/1775560680497-cover.png",
-    "category": "Tech",
-    "title": "Test Article Title",
-    "excerpt": "This is a test excerpt for the article.",
-    "content": "This is the detailed content of the test article.",
-    "readTime": "5 min",
-    "date": "Apr 7, 2026",
-    "trending": false
-  },
-  {
-    "slug": "test-article-752cac86-53b1-45cc-ad51-b2e9bd350208",
-    "image": "/uploads/1775560640772-cover.png",
-    "category": "Tech",
-    "title": "Test Article Title",
-    "excerpt": "This is a test excerpt for the article.",
-    "content": "This is the full content of the test article.",
-    "readTime": "5 min",
-    "date": "Apr 7, 2026",
-    "trending": false
-  },
-  {
-    "slug": "test-article-fdca52fb-e22b-4847-b6d1-96894b924df6",
-    "image": "/uploads/1775560466448-cover.png",
-    "category": "Tech",
-    "title": "Test Article Title",
-    "excerpt": "This is a test article excerpt.",
-    "content": "This is the detailed content of the test article.",
-    "readTime": "5 min",
-    "date": "Apr 7, 2026",
-    "trending": false
-  },
-  {
     "slug": "21-year-old-built-1m-app",
     "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
     "category": "Tech",
-    "title": "This 21-Year-Old Just Built a $1M App — From His Dorm Room",
-    "excerpt": "No funding. No co-founder. Just a laptop and an obsession with solving one problem nobody else saw.",
-    "content": "## The Origins\n\nIt all started with a single line of code in a cramped dorm room...",
-    "readTime": "5 min",
+    "title": "How a 21-Year-Old Built a $1M ARR App with Zero Funding",
+    "excerpt": "A masterlcass in constraint-driven growth. No VC, no office, just raw obsession.",
+    "content": "The story begins in a dorm room, as all great startup myths do. But for Leo, there was no 'Aha!' moment. There was only a frustratingly slow internet connection and a burning desire to fix it.\n\nLeo didn't have access to Silicon Valley capital. He didn't have a network of mentors. He had a 2017 MacBook Air and a subscription to a $10/month server.\n\n## The Problem-First Mindset\n\nMost founders start with a solution looking for a problem. Leo started with a pain point so acute he couldn't ignore it: cross-border data synchronization for remote developers. He spent the first three months just talking to people on Discord. Not selling, just listening.\n\nQUOTE: I didn't want to build a unicorn. I wanted to build a tool that didn't suck.\n\n## The MVP Trap\n\nLeo's first version was ugly. It was essentially a command-line interface with a barely-functional web dashboard. But it solved the core problem 10x better than the enterprise competitors. He launched on Product Hunt with zero expectations.\n\n* He focused on a single feature: Atomic sync.\n* He ignored marketing until he had 100 paying customers.\n* He personally onboarded every single user via Zoom.\n\n## The Scaling Phase\n\nBy month six, the app was doing $8,000 in monthly recurring revenue (MRR). This is where most founders would go for a Seed round. Leo chose the anti-gravity path: zero funding. He reinvested every dollar back into better infrastructure. \n\nToday, the app processes $1M in annual revenue with a team of exactly three people. \n\n## Key Takeaways for Founders\n\n1. Constraints are a competitive advantage. Because Leo couldn't spend his way out of problems, he had to out-think them.\n2. Do things that don't scale. Those early Zoom calls built a community of superfans who became his marketing team.\n3. Retention is the only metric that matters. Leo's churn rate is less than 1% because the tool became indispensable.",
+    "readTime": "12 min",
     "date": "Oct 24, 2023",
-    "trending": true
+    "trending": true,
+    "author": "monarchraushan"
   },
   {
     "slug": "fired-then-funded",
@@ -60,10 +17,11 @@
     "category": "Startup",
     "title": "She Got Fired on Monday. By Friday, She Had $500K in Funding.",
     "excerpt": "The rejection letter that turned into a pitch deck that turned into a term sheet.",
-    "content": "When Alice got the call from HR, she didn't panic. She pulled out her iPad...",
-    "readTime": "7 min",
+    "content": "On Monday morning, Sarah was the Head of Product at a scaling fintech. By lunch, she was out of a job. A 'strategic restructuring' meant her entire department was eliminated. \n\nInstead of updating her LinkedIn, Sarah went to a coffee shop. She had been sitting on an idea for an AI-driven ethics layer for two years. She decided that Monday was the day the world would hear about it.\n\n## From Anger to Architecture\n\nThe first 24 hours were fueled by pure adrenaline. Sarah didn't write a resume; she wrote a manifesto. She outlined how the current fintech landscape was ignoring the very people it claimed to serve.\n\nQUOTE: Getting fired was the best venture capital I ever received. It bought me my freedom.\n\n## The 48-Hour Sprint\n\nBy Wednesday, Sarah had a working prototype built on a low-code platform. She reached out to five angel investors she had met over the years. She didn't ask for a job; she asked for a partnership.\n\n* She leveraged her 'unemployed' status as proof of skin in the game.\n* She focused on the gap in her former company's strategy.\n* She presented a 12-month roadmap that was aggressively lean.\n\n## The Friday Term Sheet\n\nBy Friday afternoon, two of those five investors had committed. Sarah walked into the weekend with $500,000 in commitments and a new title: Founder & CEO. \n\n## Strategy Breakdown\n\nWhat Sarah did wasn't luck. It was the calculated liquidation of two years of mental preparation. She had already built the network, the knowledge, and the insight. All she needed was the spark.",
+    "readTime": "10 min",
     "date": "Oct 22, 2023",
-    "trending": true
+    "trending": true,
+    "author": "monarchraushan"
   },
   {
     "slug": "chai-stall-to-saas",
@@ -71,39 +29,10 @@
     "category": "Small Business",
     "title": "From Chai Stall to SaaS: The Story No MBA Will Teach You",
     "excerpt": "He couldn't spell 'venture capital' but he understood unit economics better than most founders.",
-    "content": "Everyone loves a good rags-to-riches story, but this one involves actual code...",
-    "readTime": "6 min",
+    "content": "Rajesh ran a small tea stall in the heart of a tech hub. For years, he watched founders sit at his tables and discuss 'burn rates' and 'LTV'. Rajesh didn't know the jargon, but he knew exactly how many cups of tea he needed to sell to break even by 2 PM.\n\nOne day, he noticed a recurring problem: the neighborhood businesses had no way to track local delivery credits without messy paper ledgers.\n\n## The Notebook Algorithm\n\nRajesh's 'software' was a tattered notebook. But the logic inside was flawless. He had developed a psychological system for ensuring micro-credits were paid on time. \n\nQUOTE: I didn't need a computer to understand people. I needed to understand their habits.\n\n## The First Line of Code\n\nWith the help of a student who frequently visited his stall, Rajesh turned his notebook logic into a simple mobile app. He didn't build it for the world; he built it for the four other shopkeepers on his street.\n\n* It was built on SMS gateways because data was expensive for his users.\n* It didn't have a login system — it worked on phone number trust.\n* It solved a problem that billion-dollar POS systems ignored.\n\n## Going Global by Staying Local\n\nToday, Rajesh's 'SimpleCredit' app is used by 50,000 micro-merchants across three countries. He still spends two hours a day at his tea stall. He says it's where he gets his best feature ideas.\n\n## Founder's Wisdom\n\nReal business happens on the streets, not in spreadsheets. If you can solve a problem for five people in your neighborhood, you can solve it for five million people online.",
+    "readTime": "15 min",
     "date": "Oct 21, 2023",
-    "trending": true
-  },
-  {
-    "slug": "college-dropout-ai-startup",
-    "image": "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
-    "category": "Student",
-    "title": "Why This College Dropout's AI Startup Is Scaring Big Tech",
-    "excerpt": "Three students, a shared GPU, and a model that outperforms billion-dollar labs.",
-    "content": "It took them 7 days to train the model, and 2 days to secure a seed round.",
-    "readTime": "8 min",
-    "date": "Oct 20, 2023"
-  },
-  {
-    "slug": "bootstrapped-to-10m",
-    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-    "category": "Tech",
-    "title": "Bootstrapped to $10M ARR: Zero Investors, Zero Regrets",
-    "excerpt": "The founder who said no to every VC and built a cash machine instead.",
-    "content": "VCs still email him every week. He replies with a screenshot of his MRR.",
-    "readTime": "6 min",
-    "date": "Oct 18, 2023"
-  },
-  {
-    "slug": "bakery-that-went-global",
-    "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
-    "category": "Small Business",
-    "title": "A Small-Town Bakery That Now Ships to 14 Countries",
-    "excerpt": "One Instagram reel changed everything. Here's the playbook she used.",
-    "content": "She thought the order was spam. Then the payment cleared.",
-    "readTime": "4 min",
-    "date": "Oct 15, 2023"
+    "trending": true,
+    "author": "monarchraushan"
   }
 ]

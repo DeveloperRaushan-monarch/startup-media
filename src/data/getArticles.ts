@@ -27,14 +27,21 @@ const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supaba
 export async function getArticles(): Promise<Article[]> {
   if (supabase) {
     try {
-      const { data, error } = await supabase
+      const fetchPromise = supabase
         .from('articles')
         .select('*')
         .order('date', { ascending: false });
 
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Supabase request timed out")), 3000)
+      );
+
+      // @ts-ignore - Supabase returns a PostgrestBuilder which is Thenable
+      const { data, error } = await Promise.race([fetchPromise, timeoutPromise]) as any;
+
       if (!error && data) {
         // Map database columns to Article interface
-        const dbArticles: Article[] = data.map(row => ({
+        const dbArticles: Article[] = data.map((row: any) => ({
           slug: row.slug,
           title: row.title,
           image: row.image,

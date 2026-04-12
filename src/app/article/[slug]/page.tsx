@@ -4,6 +4,34 @@ import styles from "./page.module.css";
 import { getArticleBySlug, getArticles } from "@/data/getArticles";
 import { notFound } from "next/navigation";
 import ArticleProgress from "./ArticleProgress";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
+
+  if (!article) return { title: "Article Not Found" };
+
+  return {
+    title: article.title,
+    description: Array.isArray(article.content) ? article.content[0].substring(0, 160) : article.content.substring(0, 160),
+    openGraph: {
+      title: article.title,
+      description: article.excerpt || "A deep dive on StartupMedia.",
+      images: [article.image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt || "A deep dive on StartupMedia.",
+      images: [article.image],
+    },
+  };
+}
 
 export default async function ArticlePage({
   params,
@@ -31,31 +59,33 @@ export default async function ArticlePage({
 
   // Content rendering helper
   const renderContent = (content: string | string[]) => {
-    if (Array.isArray(content)) {
-      return content.map((block, i) => {
-        if (block.startsWith("QUOTE:")) {
-          return (
-            <blockquote key={i} className={styles.pullQuote}>
-              <p>{block.replace("QUOTE:", "")}</p>
-            </blockquote>
-          );
-        }
-        return <p key={i}>{block}</p>;
-      });
-    }
+    const blocks = Array.isArray(content) ? content : content.split('\n').filter(p => p.trim() !== '');
     
-    // Handle string content with newlines
-    return content.split('\n').filter(p => p.trim() !== '').map((block, i) => {
+    return blocks.map((block, i) => {
+        // Pull Quotes
         if (block.startsWith("QUOTE:") || block.startsWith("> ")) {
           return (
             <blockquote key={i} className={styles.pullQuote}>
-              <p>{block.replace(/^QUOTE:|^>\s*/, "")}</p>
+              <p>{block.replace(/^QUOTE:|^>\s*/, "").trim()}</p>
             </blockquote>
           );
         }
+        
+        // Subheadings
         if (block.startsWith("## ")) {
-            return <h2 key={i}>{block.replace("## ", "")}</h2>;
+            return <h2 key={i}>{block.replace("## ", "").trim()}</h2>;
         }
+
+        // Bullet Points
+        if (block.startsWith("* ") || block.startsWith("- ")) {
+           return (
+            <ul key={i}>
+              <li>{block.replace(/^[\*\-]\s*/, "").trim()}</li>
+            </ul>
+           );
+        }
+
+        // Regular Paragraphs
         return <p key={i}>{block}</p>;
     });
   };
@@ -90,6 +120,7 @@ export default async function ArticlePage({
 
       {/* Read Next */}
       <section className={`section ${styles.readNextSection}`}>
+
         <div className="container">
           <span className="section-label">Continue Reading</span>
           <h2 className="section-title">You May Also Like</h2>

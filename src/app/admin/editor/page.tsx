@@ -4,7 +4,8 @@ import { saveArticle } from "@/app/actions";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./editor.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import DeleteButton from "../dashboard/DeleteButton";
 
 export default function AdminEditor() {
   const router = useRouter();
@@ -29,17 +30,35 @@ export default function AdminEditor() {
     setIsPublishing(true);
     
     try {
-      const formData = new FormData(e.currentTarget);
-      const res = await saveArticle(formData);
+      // Manually construct FormData to avoid serialization issues
+      const cleanFormData = new FormData();
+      cleanFormData.append("title", title);
+      cleanFormData.append("slug", slug);
+      cleanFormData.append("category", category);
+      cleanFormData.append("excerpt", excerpt);
+      cleanFormData.append("content", content);
+      
+      const fileInput = (e.currentTarget as HTMLFormElement).elements.namedItem("coverImage") as HTMLInputElement;
+      if (fileInput?.files?.[0]) {
+        console.log("Adding file to form data:", fileInput.files[0].name);
+        cleanFormData.append("coverImage", fileInput.files[0]);
+      } else {
+        console.log("No file to add.");
+      }
+
+      const res = await saveArticle(cleanFormData);
       
       if (res.success) {
         alert("Article Published Successfully!");
         router.push("/admin/dashboard");
         router.refresh();
+      } else {
+        alert("Server Error: " + (res.error || "Could not publish article."));
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to publish article", error);
-      alert("Error: Could not publish article.");
+      const technicalError = error?.message || String(error);
+      alert(`Submission Crash: ${technicalError}\n\nI have added a 'server_debug.log' on your computer root. Please check that file!`);
     } finally {
       setIsPublishing(false);
     }
@@ -53,7 +72,8 @@ export default function AdminEditor() {
           <Link href="/admin/dashboard" className={styles.backBtn}>
             ← Back to Dashboard
           </Link>
-          <div style={{ display: 'flex', gap: '1rem' }}>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            {slug && <DeleteButton slug={slug} />}
             <button type="button" className="btn-secondary" style={{ padding: '0.75rem 1.5rem', background: 'transparent', border: '1px solid var(--color-border)', borderRadius: '8px', color: 'var(--color-text)', cursor: 'pointer' }}>
               Save Draft
             </button>

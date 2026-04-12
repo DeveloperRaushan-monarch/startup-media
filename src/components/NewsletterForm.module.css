@@ -1,0 +1,177 @@
+.form {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.inputWrapper {
+  position: relative;
+  flex: 1;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.02), 0 8px 30px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent);
+}
+
+.inputGlow {
+  position: absolute;
+  inset: -1px;
+  background: var(--accent-gradient);
+  border-radius: var(--radius-md);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.input:focus + .inputGlow {
+  opacity: 0.3;
+}
+
+.button {
+  padding: 0 28px;
+  background: var(--accent-gradient);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.button:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Launching State */
+.launchingBtn {
+  opacity: 0.8;
+  cursor: wait;
+}
+
+.launchText {
+  animation: ignition 0.5s infinite alternate;
+}
+
+@keyframes ignition {
+  from { opacity: 0.6; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Success Container */
+.successContainer {
+  text-align: center;
+  padding: 20px 0;
+  animation: successIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes successIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.rocketLaunch {
+  position: relative;
+  height: 80px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.successRocket {
+  font-size: 3rem;
+  animation: launchTakeoff 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes launchTakeoff {
+  0% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(10px) rotate(-5deg); }
+  100% { transform: translateY(-150px) scale(0.5); opacity: 0; }
+}
+
+.smoke {
+  position: absolute;
+  top: 40px;
+  display: flex;
+  gap: 4px;
+}
+
+.smoke span {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 107, 0, 0.4);
+  border-radius: 50%;
+  filter: blur(4px);
+  animation: smokeOut 1s ease-out forwards;
+}
+
+@keyframes smokeOut {
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  100% { transform: scale(4) translateY(20px); opacity: 0; }
+}
+
+.successTitle {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.successMsg {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  max-width: 360px;
+  margin: 0 auto 20px;
+}
+
+.resetBtn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetBtn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .form { flex-direction: column; }
+  .button { height: 48px; justify-content: center; }
+}

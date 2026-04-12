@@ -18,8 +18,9 @@ To enable the "Publish" button on your live Vercel site for **FREE** (no credit 
 - Create a new project called `startup-media`.
 - Go to **Project Settings** → **API** and copy `Project URL` and `anon public` key.
 
-### 2. Connect to Vercel
-- Go to **Vercel Dashboard** → **Settings** → **Environment Variables**.
+### 2. Connect to Hosting (Vercel or Netlify)
+- **Vercel**: Go to **Settings** → **Environment Variables**.
+- **Netlify**: Go to **Site Settings** → **Environment Variables**.
 - Add these:
   - `SUPABASE_URL`
   - `SUPABASE_ANON_KEY`

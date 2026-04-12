@@ -2,12 +2,15 @@ import Link from "next/link";
 import styles from "./dashboard.module.css";
 import { getArticles } from "@/data/getArticles";
 import ScrollReveal from "@/components/ScrollReveal";
+import DeleteButton from "./DeleteButton";
+import AnimatedCounter from "./AnimatedCounter";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export default async function AdminDashboard() {
   const articles = await getArticles();
+  const totalReads = articles.reduce((acc, a) => acc + (a.views || 0), 0);
 
   return (
     <div className={`container ${styles.dashboard}`}>
@@ -23,21 +26,20 @@ export default async function AdminDashboard() {
 
       <div className={styles.statsGrid}>
         <ScrollReveal className={styles.statCard} delay={100}>
-          <div className={styles.statValue}>{articles.length}</div>
+          <div className={styles.shimmer} />
+          <div className={styles.statIcon}>📖</div>
+          <div className={styles.statValue}><AnimatedCounter target={articles.length} /></div>
           <div className={styles.statLabel}>Total Stories</div>
+          <div className={styles.statGlow} />
         </ScrollReveal>
         <ScrollReveal className={styles.statCard} delay={200}>
-          <div className={styles.statValue}>
-            {articles.reduce((acc, a) => acc + (a.views || 0), 0)}
-          </div>
+          <div className={styles.shimmer} />
+          <div className={styles.statIcon}>👁️</div>
+          <div className={styles.statValue}><AnimatedCounter target={totalReads} duration={1800} /></div>
           <div className={styles.statLabel}>Total Reads</div>
+          <div className={styles.statGlow} />
         </ScrollReveal>
-        <ScrollReveal className={styles.statCard} delay={300}>
-          <div className={styles.statValue}>
-            {Math.floor(articles.length * 1.5) + 3}
-          </div>
-          <div className={styles.statLabel}>Subscribers</div>
-        </ScrollReveal>
+
       </div>
 
       <ScrollReveal className={styles.sectionHeader} delay={400}>
@@ -63,7 +65,7 @@ export default async function AdminDashboard() {
             <div className={`${styles.date} hide-on-mobile`}>{article.date}</div>
             <div className={styles.actions}>
               <Link href={`/admin/editor?slug=${article.slug}`} className={styles.actionBtn}>Edit</Link>
-              <button className={styles.actionBtn}>Delete</button>
+              <DeleteButton slug={article.slug} />
             </div>
           </ScrollReveal>
         ))}

@@ -1,4 +1,8 @@
-/* ===== HERO ===== */
+/* ═══════════════════════════════════════════════
+   ABOUT PAGE — Full Animation Suite
+═══════════════════════════════════════════════ */
+
+/* ── Hero ──────────────────────────────────────── */
 .hero {
   position: relative;
   padding-top: 160px;
@@ -6,18 +10,48 @@
   overflow: hidden;
 }
 
+/* Animated radial grid lines */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,107,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,107,0,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridShift 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes gridShift {
+  from { background-position: 0 0; }
+  to   { background-position: 60px 60px; }
+}
+
 .heroBg {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(255, 107, 0, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 0%, rgba(255,107,0,0.09) 0%, transparent 60%),
     var(--bg);
+  animation: bgBreath 8s ease-in-out infinite alternate;
+}
+
+@keyframes bgBreath {
+  from { opacity: 0.7; transform: scale(1); }
+  to   { opacity: 1; transform: scale(1.03); }
 }
 
 .heroContent {
   position: relative;
   z-index: 1;
   max-width: 700px;
+  animation: heroContentIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+@keyframes heroContentIn {
+  from { opacity: 0; transform: translateY(50px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .heroTitle {
@@ -26,6 +60,12 @@
   line-height: 1.1;
   letter-spacing: -0.03em;
   margin-bottom: 20px;
+  animation: titleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+@keyframes titleReveal {
+  from { opacity: 0; transform: translateY(40px) skewY(1.5deg); }
+  to   { opacity: 1; transform: translateY(0) skewY(0deg); }
 }
 
 .heroTitle span {
@@ -33,38 +73,95 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  position: relative;
+  display: inline-block;
+}
+
+/* Accent underline draw */
+.heroTitle span::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 3px;
+  background: var(--accent-gradient);
+  border-radius: 2px;
+  animation: underlineDraw 0.8s ease 1s forwards;
+}
+
+@keyframes underlineDraw {
+  from { width: 0; }
+  to   { width: 100%; }
 }
 
 .heroSub {
   font-size: 1.15rem;
   color: var(--text-secondary);
   line-height: 1.8;
+  animation: fadeUp 0.8s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ===== MISSION ===== */
+/* ── Mission ────────────────────────────────────── */
 .missionSection {
   background: var(--bg-surface);
+  position: relative;
+  overflow: hidden;
+}
+
+/* moving diagonal gradient */
+.missionSection::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,107,0,0.03) 0%, transparent 50%);
+  animation: diagonalDrift 12s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes diagonalDrift {
+  from { transform: translate(-5%, -5%) scale(1); }
+  to   { transform: translate(5%, 5%) scale(1.05); }
 }
 
 .missionGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
+  gap: clamp(40px, 6vw, 80px); /* Responsive gap */
+  align-items: start; /* Changed from center to start for better text alignment */
+  position: relative;
+  z-index: 1;
+  padding: 40px 0;
 }
 
 .missionQuote {
   padding: 32px;
   border-left: 3px solid var(--accent);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glowing left bar pulse */
+.missionQuote::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--accent-gradient);
+  animation: barGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes barGlow {
+  from { box-shadow: none; }
+  to   { box-shadow: 0 0 20px rgba(255,107,0,0.6); }
 }
 
 .missionQuote p {
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem); /* Fluid sizing */
+  font-weight: 800;
   font-style: italic;
   line-height: 1.4;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  transition: color 0.3s ease;
 }
 
 .missionText p {
@@ -72,11 +169,13 @@
   color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: 20px;
+  transition: color 0.3s ease;
 }
 
-/* ===== COVER ===== */
+/* ── Cover Cards ─────────────────────────────────── */
 .coverSection {
   background: var(--bg);
+  position: relative;
 }
 
 .coverGrid {
@@ -87,22 +186,91 @@
 }
 
 .coverCard {
-  background: var(--bg-card);
+  background: rgba(30, 30, 30, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: var(--radius-lg);
   padding: 36px 28px;
-  border: 1px solid rgba(73, 72, 71, 0.15);
-  transition: all var(--transition-normal);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform    0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow   0.45s ease,
+    background   0.3s ease;
+}
+
+/* top bar draws in */
+.coverCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent-gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.coverCard:hover::before { transform: scaleX(1); }
+
+/* Scan beam */
+.coverCard::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -70%;
+  width: 45%; height: 100%;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,107,0,0.07) 50%, transparent 60%);
+  transform: skewX(-15deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.coverCard:hover::after {
+  opacity: 1;
+  animation: scanBeam 0.75s ease forwards;
+}
+
+@keyframes scanBeam {
+  from { left: -70%; }
+  to   { left: 140%; }
 }
 
 .coverCard:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 107, 0, 0.2);
+  transform: translateY(-10px) scale(1.02);
+  border-color: rgba(255,107,0,0.35);
+  background: var(--bg-card-hover);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 28px rgba(255,107,0,0.1);
 }
 
 .coverIcon {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   margin-bottom: 16px;
+  display: inline-block;
   filter: drop-shadow(0 0 12px var(--accent-glow));
+  animation: iconFloat 4s ease-in-out infinite;
+  transition: filter 0.3s ease, transform 0.4s ease;
+}
+
+.coverCard:nth-child(2) .coverIcon { animation-delay: -1.3s; }
+.coverCard:nth-child(3) .coverIcon { animation-delay: -2.6s; }
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+.coverCard:hover .coverIcon {
+  filter: drop-shadow(0 0 20px rgba(255,107,0,0.7));
+  animation: iconPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes iconPop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.3) rotate(-5deg); }
+  100% { transform: scale(1.15) rotate(3deg); }
 }
 
 .coverCard h3 {
@@ -110,7 +278,10 @@
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 10px;
+  transition: color 0.3s ease;
 }
+
+.coverCard:hover h3 { color: var(--accent-light); }
 
 .coverCard p {
   font-size: 0.9rem;
@@ -118,30 +289,45 @@
   line-height: 1.6;
 }
 
-/* ===== EDITOR ===== */
+/* ── Editor ──────────────────────────────────────── */
 .editorSection {
   background: var(--bg-surface);
+  position: relative;
 }
 
 .editorInner {
   display: flex;
   align-items: center;
   gap: 40px;
+  position: relative;
+  z-index: 1;
 }
 
 .editorAvatar {
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   background: var(--accent-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: #fff;
   flex-shrink: 0;
-  box-shadow: 0 0 30px var(--accent-glow);
+  box-shadow: 0 0 40px var(--accent-glow);
+  animation: avatarPulse 3s ease-in-out infinite;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+@keyframes avatarPulse {
+  0%, 100% { box-shadow: 0 0 30px rgba(255,107,0,0.3); }
+  50%       { box-shadow: 0 0 60px rgba(255,107,0,0.6), 0 0 0 8px rgba(255,107,0,0.08); }
+}
+
+.editorAvatar:hover {
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 0 70px rgba(255,107,0,0.7);
 }
 
 .editorInfo h3 {
@@ -158,22 +344,29 @@
   max-width: 600px;
 }
 
-/* ===== VALUES ===== */
+/* ── Values ──────────────────────────────────────── */
 .valuesSection {
   background: var(--bg);
+  position: relative;
+  overflow: hidden;
 }
 
 .valuesGrid {
   display: flex;
   flex-direction: column;
   gap: 48px;
+  position: relative;
+  z-index: 1;
 }
 
 .valueItem {
   display: flex;
   align-items: center;
   gap: 28px;
+  transition: transform 0.4s ease;
 }
+
+.valueItem:hover { transform: translateX(10px); }
 
 .valueLine {
   width: 60px;
@@ -181,6 +374,12 @@
   background: var(--accent-gradient);
   border-radius: 2px;
   flex-shrink: 0;
+  transition: width 0.4s ease, box-shadow 0.4s ease;
+}
+
+.valueItem:hover .valueLine {
+  width: 90px;
+  box-shadow: 0 0 16px rgba(255,107,0,0.5);
 }
 
 .valueItem h3 {
@@ -188,29 +387,24 @@
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.02em;
+  transition: color 0.3s ease;
 }
 
-/* ===== RESPONSIVE ===== */
+.valueItem:hover h3 { color: var(--accent-light); }
+
+/* ── Shared ──────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ──────────────────────────────────── */
 @media (max-width: 768px) {
-  .hero {
-    padding-top: 120px;
-    padding-bottom: 60px;
-  }
-  .missionGrid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .missionQuote p {
-    font-size: 1.3rem;
-  }
-  .coverGrid {
-    grid-template-columns: 1fr;
-  }
-  .editorInner {
-    flex-direction: column;
-    text-align: center;
-  }
-  .valueItem h3 {
-    font-size: 1.2rem;
-  }
+  .hero { padding-top: 120px; padding-bottom: 60px; }
+  .missionGrid { grid-template-columns: 1fr; gap: 40px; }
+  .missionQuote p { font-size: 1.3rem; }
+  .coverGrid { grid-template-columns: 1fr; }
+  .editorInner { flex-direction: column; text-align: center; }
+  .valueItem h3 { font-size: 1.2rem; }
+  .hero::before { display: none; }
 }

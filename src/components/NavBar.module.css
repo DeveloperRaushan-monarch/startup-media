@@ -5,40 +5,108 @@
   right: 0;
   z-index: 1000;
   padding: 24px 0;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+              padding 0.4s ease, 
+              background 0.4s ease, 
+              opacity 0.6s ease;
+  animation: navSlideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.header.hidden {
+  transform: translateY(-100%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+@keyframes navSlideDown {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .header.scrolled {
   padding: 14px 0;
-  background: rgba(10, 10, 10, 0.8);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(10, 10, 10, 0.4);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
 }
 
+/* progress bar */
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: var(--scroll-progress, 0%);
+  background: var(--accent-gradient);
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(255,107,0,0.5);
+}
+
+/* ─── Inner ───────────────────────────────────────── */
 .inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+/* ─── Logo ────────────────────────────────────────── */
 .logo {
   font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--text-primary);
   transition: color var(--transition-fast);
+  position: relative;
 }
 
-.logo span {
+.logo span { color: var(--accent); }
+.logo:hover { color: var(--accent-light); }
+
+/* ─── Rocket Logo ─────────────────────────────────── */
+.rocketLogo {
+  max-height: 48px;
+  width: auto;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.15));
+  animation: float 4s ease-in-out infinite;
+  will-change: transform;
+  transition: all 0.3s ease;
+}
+
+.rocketLogo:hover {
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.4));
+  animation: superFloat 2s ease-in-out infinite;
+}
+
+/* ─── Logo Text ───────────────────────────────────── */
+.logoText {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: inline-block;
+  transition: all 0.4s ease;
+  will-change: transform, text-shadow;
+  position: relative;
+  animation: float 4s ease-in-out infinite;
+}
+
+.logoText span {
   color: var(--accent);
+  transition: all 0.4s ease;
 }
 
-.logo:hover {
-  color: var(--accent-light);
+.logo:hover .logoText {
+  animation: superFloat 2s ease-in-out infinite;
+  text-shadow: 0 0 20px rgba(255,107,0,0.4), 0 0 50px rgba(255,107,0,0.15);
 }
 
+.logo:hover .logoText span {
+  text-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent);
+}
+
+/* ─── Nav Links ───────────────────────────────────── */
 .nav {
   display: flex;
   align-items: center;
@@ -49,10 +117,11 @@
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-secondary);
-  transition: color var(--transition-fast);
+  transition: color 0.25s ease, transform 0.25s ease;
   position: relative;
 }
 
+/* Underline draw */
 .nav a::after {
   content: '';
   position: absolute;
@@ -60,26 +129,30 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--accent);
-  transition: width var(--transition-normal);
+  background: var(--accent-gradient);
   border-radius: 1px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 6px rgba(255,107,0,0.5);
 }
 
 .nav a:hover {
   color: var(--text-primary);
+  transform: translateY(-1px);
 }
 
-.nav a:hover::after {
-  width: 100%;
-}
+.nav a:hover::after { width: 100%; }
 
+/* ─── Burger ──────────────────────────────────────── */
 .burger {
   display: none;
   flex-direction: column;
   gap: 5px;
   background: none;
   padding: 4px;
+  transition: transform 0.3s ease;
 }
+
+.burger:hover { transform: scale(1.1); }
 
 .burger span {
   display: block;
@@ -87,59 +160,84 @@
   height: 2px;
   background: var(--text-primary);
   border-radius: 2px;
-  transition: all var(--transition-normal);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.burger.active span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+.burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ─── Keyframes ───────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-4px) rotate(1deg); }
 }
 
-.burger.active span:nth-child(2) {
-  opacity: 0;
+@keyframes superFloat {
+  0%, 100% { transform: translateY(-4px) scale(1.05) rotate(0deg); }
+  50%       { transform: translateY(-8px) scale(1.05) rotate(3deg); }
 }
 
-.burger.active span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
+/* ─── Mobile ──────────────────────────────────────── */
 @media (max-width: 768px) {
-  .burger {
-    display: flex;
-  }
+  .header { padding: 18px 0; }
+  .burger { display: flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
 
   .nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(10, 10, 10, 0.98);
-    backdrop-filter: blur(28px);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 10, 10, 0.4);
+    backdrop-filter: blur(36px);
+    -webkit-backdrop-filter: blur(36px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 40px;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(-20px);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scale(1.1);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 999;
   }
 
   .nav.open {
     opacity: 1;
     pointer-events: all;
-    transform: translateY(0);
+    transform: scale(1);
   }
 
   .nav a {
-    font-size: 1.8rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
     color: var(--text-primary);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: color 0.3s ease, 
+                opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   }
 
-  .nav a:hover {
-    color: var(--accent);
-  }
+  .nav.open a { opacity: 1; transform: translateY(0); }
+  .nav.open a:nth-child(1) { transition-delay: 0.05s; }
+  .nav.open a:nth-child(2) { transition-delay: 0.1s; }
+  .nav.open a:nth-child(3) { transition-delay: 0.15s; }
+  .nav.open a:nth-child(4) { transition-delay: 0.2s; }
+  .nav.open a:nth-child(5) { transition-delay: 0.25s; }
+
+  .nav a:hover { color: var(--accent); transform: translateX(6px); }
 }
 
+@media (max-width: 480px) {
+  .header { padding: 14px 0; }
+  .rocketLogo { max-height: 36px; }
+  .logoText { font-size: 1.2rem; }
+}
+
+@media (max-width: 360px) {
+  .logoText { font-size: 1.05rem; }
+}

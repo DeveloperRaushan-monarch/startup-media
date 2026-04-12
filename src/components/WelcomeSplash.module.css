@@ -1,0 +1,107 @@
+/* ═══════════════════════════════════════
+   WELCOME SPLASH OVERLAY
+═══════════════════════════════════════ */
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  /* Layer 1: Full-screen frosted dark backdrop */
+  background: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+
+  /* Entire overlay animates in then out */
+  animation: splashLifecycle 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes splashLifecycle {
+  /* Phase 1: Snap fade in */
+  0%   { opacity: 0; backdrop-filter: blur(0px); }
+  10%  { opacity: 1; backdrop-filter: blur(28px); }
+  /* Phase 2: Hold nicely */
+  70%  { opacity: 1; backdrop-filter: blur(28px); }
+  /* Phase 3: Elegant exit */
+  100% { opacity: 0; backdrop-filter: blur(0px); }
+}
+
+/* The big ambient ring behind the text */
+.ring {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 107, 0, 0.15);
+  box-shadow:
+    0 0 80px 20px rgba(255, 107, 0, 0.08),
+    inset 0 0 60px 10px rgba(255, 107, 0, 0.04);
+  animation: ringPulse 2s ease-in-out infinite alternate;
+}
+
+.ring2 {
+  width: 250px;
+  height: 250px;
+  border-color: rgba(255, 107, 0, 0.25);
+  animation: ringPulse 1.4s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes ringPulse {
+  from { transform: scale(0.95); opacity: 0.5; }
+  to   { transform: scale(1.05); opacity: 1; }
+}
+
+/* WELCOME text */
+.welcome {
+  position: relative;
+  font-size: clamp(2.5rem, 10vw, 7rem);
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: transparent;
+  background: linear-gradient(135deg, #ffffff 30%, rgba(255, 107, 0, 0.7) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* Text appears with a slight lift */
+  animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+  text-shadow: none;
+  filter: drop-shadow(0 0 30px rgba(255, 107, 0, 0.3));
+}
+
+@keyframes textReveal {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); letter-spacing: 0.45em; }
+  to   { opacity: 1; transform: translateY(0) scale(1); letter-spacing: 0.25em; }
+}
+
+/* Tagline below */
+.tagline {
+  position: relative;
+  margin-top: 16px;
+  font-size: clamp(0.7rem, 2vw, 0.95rem);
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+}
+
+/* Thin glowing accent line */
+.line {
+  position: relative;
+  width: 60px;
+  height: 2px;
+  margin-top: 28px;
+  background: var(--accent-gradient);
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(255, 107, 0, 0.6);
+  animation: lineReveal 0.6s ease 0.8s both;
+}
+
+@keyframes lineReveal {
+  from { width: 0; opacity: 0; }
+  to   { width: 60px; opacity: 1; }
+}

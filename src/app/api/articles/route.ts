@@ -1,29 +1,17 @@
-import { saveArticle } from "@/app/actions";
-import { NextRequest, NextResponse } from "next/server";
+import { getArticles } from "@/data/getArticles";
+import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function GET() {
   try {
-    // 1. Simple Security Check for Production-Ready API
-    const apiKey = request.headers.get("x-api-key");
-    const validApiKey = process.env.STITCH_API_KEY || "startup_media_dev_key";
-
-    if (apiKey !== validApiKey) {
-      return NextResponse.json({ success: false, error: "Unauthorized: Invalid or missing API Key" }, { status: 401 });
-    }
-
-    const formData = await request.formData();
-    const result = await saveArticle(formData);
-
-    if (result.success) {
-      return NextResponse.json(result, { status: 200 });
-    } else {
-      return NextResponse.json(result, { status: 400 });
-    }
+    const articles = await getArticles();
+    // Only return necessary fields for search to keep payload small
+    const searchData = articles.map(a => ({
+      title: a.title,
+      slug: a.slug,
+      category: a.category
+    }));
+    return NextResponse.json(searchData);
   } catch (error) {
-    console.error("API Route Error (POST /api/articles):", error);
-    return NextResponse.json(
-      { success: false, error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch articles" }, { status: 500 });
   }
 }

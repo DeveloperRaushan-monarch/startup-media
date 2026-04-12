@@ -2,55 +2,82 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
+import fs from "fs";
+import path from "path";
 
 // Supabase Configuration
 const supabaseUrl = process.env.SUPABASE_URL || "";
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || "";
 const supabase = (supabaseUrl && supabaseServiceKey) ? createClient(supabaseUrl, supabaseServiceKey) : null;
 
+function writeToLog(message: string) {
+  const logPath = path.join(process.cwd(), "server_debug.log");
+  const timestamp = new Date().toISOString();
+  try {
+    fs.appendFileSync(logPath, `[${timestamp}] ${message}\n`);
+  } catch (e) {
+    console.error("Failed to write to log file:", e);
+  }
+}
+
+// FORCE LOG ON STARTUP
+writeToLog("--- ACTIONS MODULE LOADED ---");
+
 export async function saveArticle(formData: FormData) {
   try {
+    writeToLog("--- START saveArticle ---");
+    
+    // 0. Environment check
+    if (!supabaseUrl || !supabaseServiceKey || supabaseServiceKey === "YOUR_SUPABASE_ANON_KEY") {
+      writeToLog("MISSING SUPABASE CONFIG");
+      return { success: false, error: "Supabase not configured. Restart server after .env.local update." };
+    }
+    
+    if (!supabase) {
+      writeToLog("FAILED CLIENT INITIALIZATION");
+      return { success: false, error: "Failed to initialize Supabase client." };
+    }
+
+    // 1. Get Fields
     const title = formData.get("title") as string;
     const slug = formData.get("slug") as string;
     const category = formData.get("category") as string;
     const excerpt = formData.get("excerpt") as string;
     const content = formData.get("content") as string;
     const imageFile = formData.get("coverImage");
-    const author = formData.get("author") as string || "monarchraushan";
+    writeToLog(`FIELDS: title=${title}, slug=${slug}`);
 
     if (!title || !slug) {
         return { success: false, error: "Title and Slug are required." };
     }
 
-    let imageUrl = "";
+    let imageUrl = "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80";
 
-    // Safely check if imageFile is a File and has data
+    // 2. Image Upload (Isolated try-catch)
     if (imageFile instanceof Blob && imageFile.size > 0 && typeof (imageFile as any).arrayBuffer === 'function') {
       try {
+        writeToLog(`IMAGE ATTEMPT: size=${imageFile.size}`);
         const bytes = await imageFile.arrayBuffer();
         const buffer = Buffer.from(bytes);
         
-        const fs = require("fs");
-        const path = require("path");
         const uploadDir = path.join(process.cwd(), "public", "uploads");
-        
-        if (!fs.existsSync(uploadDir)) {
-          fs.mkdirSync(uploadDir, { recursive: true });
-        }
+        if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
         const filename = `${Date.now()}-${(imageFile as any).name?.replaceAll(" ", "_") || 'upload'}`;
         const filepath = path.join(uploadDir, filename);
         
         fs.writeFileSync(filepath, buffer);
         imageUrl = `/uploads/${filename}`;
-      } catch (e) {
-        console.warn("Image upload failed, falling back to placeholder.");
+        writeToLog(`IMAGE SAVED: ${imageUrl}`);
+      } catch (e: any) {
+        writeToLog(`IMAGE ERROR: ${e.message}`);
         imageUrl = "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80";
       }
     } else {
-       imageUrl = "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80";
+       writeToLog("NO IMAGE OR BLOB INVALID");
     }
 
+    // 3. Prepare Object
     const newArticle = {
       slug,
       image: imageUrl,
@@ -61,60 +88,38 @@ export async function saveArticle(formData: FormData) {
       read_time: "5 min",
       date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
       trending: false,
-      author
+      author: "monarchraushan"
     };
 
-    // Database Logic: Use Supabase if configured
+    // 4. Save to DB
     if (supabase) {
+      writeToLog("DB ATTEMPT: Upserting...");
       const { error } = await supabase
         .from('articles')
         .upsert(newArticle, { onConflict: 'slug' });
         
       if (error) {
-          console.error("Supabase Save Error:", error.message);
-          return { success: false, error: "Database error" };
+          writeToLog(`DB ERROR: ${error.message}`);
+          return { success: false, error: `Database error: ${error.message}` };
       }
-    } else {
-      // Local Logic: Fallback to JSON if no database
-      const fs = require("fs");
-      const path = require("path");
-      const dbPath = path.join(process.cwd(), "src/data/articles.json");
-      let articles = [];
-      
-      try {
-        if (fs.existsSync(dbPath)) {
-          const fileData = fs.readFileSync(dbPath, "utf8");
-          articles = JSON.parse(fileData);
-        }
-      } catch (e) {}
-      
-      const existingIndex = articles.findIndex((a: any) => a.slug === slug);
-      if (existingIndex > -1) {
-        articles[existingIndex] = { ...newArticle, readTime: "5 min" };
-      } else {
-        articles.unshift({ ...newArticle, readTime: "5 min" });
-      }
-      
-      fs.writeFileSync(dbPath, JSON.stringify(articles, null, 2));
+      writeToLog("DB SUCCESS");
     }
 
     revalidatePath("/");
     revalidatePath("/admin/dashboard");
     revalidatePath(`/article/${slug}`);
 
+    writeToLog("--- FINISH SUCCESS ---");
     return { success: true };
-  } catch (err) {
-    console.error("Critical error in saveArticle:", err);
-    return { success: false, error: "Internal Server Error" };
+  } catch (err: any) {
+    writeToLog(`TOP-LEVEL CRASH: ${err.message}\n${err.stack}`);
+    return { success: false, error: `Critical Server Error: ${err.message}` };
   }
 }
 
 export async function incrementView(slug: string) {
   try {
     if (supabase) {
-      // Use RPC if we have it, or just a simple update
-      // Supabase supports column increments via SQL but not directly in SDK 
-      // without fetch. The most reliable way for now is a simple upsert/update
       const { data, error } = await supabase
         .from('articles')
         .select('views')
@@ -130,5 +135,45 @@ export async function incrementView(slug: string) {
     }
   } catch (err) {
     console.error("View tracking failed:", err);
+  }
+}
+
+export async function deleteArticle(slug: string) {
+  try {
+    if (!supabaseUrl || !supabaseServiceKey || supabaseServiceKey === "YOUR_SUPABASE_ANON_KEY") {
+      return { success: false, error: "Supabase not configured." };
+    }
+
+    if (!supabase) {
+      return { success: false, error: "Failed to initialize Supabase client." };
+    }
+
+    const { error } = await supabase
+      .from('articles')
+      .delete()
+      .eq('slug', slug);
+
+    if (error) {
+      console.error(`DB DELETE ERROR: ${error.message}`);
+      return { success: false, error: `Database error: ${error.message}` };
+    }
+    
+    // Also remove from local JSON if it exists as fallback
+    const dbPath = path.join(process.cwd(), "src/data/articles.json");
+    if (fs.existsSync(dbPath)) {
+      try {
+        const fileData = fs.readFileSync(dbPath, "utf8");
+        let articles = JSON.parse(fileData);
+        articles = articles.filter((a: any) => a.slug !== slug);
+        fs.writeFileSync(dbPath, JSON.stringify(articles, null, 2));
+      } catch (e) {}
+    }
+
+    revalidatePath("/");
+    revalidatePath("/admin/dashboard");
+    return { success: true };
+  } catch (err: any) {
+    console.error("Critical error in deleteArticle:", err);
+    return { success: false, error: `Critical Server Error: ${err.message}` };
   }
 }

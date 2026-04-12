@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AestheticLink from "@/components/AestheticLink";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -13,31 +14,33 @@ export default function Footer() {
             Stories that inspire the next generation of builders.
           </p>
         </div>
-
         <nav className={styles.links}>
           <div className={styles.col}>
             <h4>Navigate</h4>
-            <Link href="/">Home</Link>
-            <Link href="/#stories">Stories</Link>
-            <Link href="/#categories">Categories</Link>
+            <AestheticLink href="/">Home</AestheticLink>
+            <AestheticLink href="/#stories">Stories</AestheticLink>
+            <AestheticLink href="/#categories">Categories</AestheticLink>
           </div>
           <div className={styles.col}>
             <h4>Company</h4>
-            <Link href="/about">About</Link>
-            <Link href="/contact">Contact</Link>
-            <Link href="/contact">Get Featured</Link>
+            <AestheticLink href="/about">About</AestheticLink>
+            <AestheticLink href="/contact">Contact</AestheticLink>
+            <AestheticLink href="/contact">Get Featured</AestheticLink>
           </div>
           <div className={styles.col}>
             <h4>Categories</h4>
-            <Link href="/#categories">Tech</Link>
-            <Link href="/#categories">Student</Link>
-            <Link href="/#categories">Small Business</Link>
+            <AestheticLink href="/#categories">Tech</AestheticLink>
+            <AestheticLink href="/#categories">Student</AestheticLink>
+            <AestheticLink href="/#categories">Small Business</AestheticLink>
           </div>
         </nav>
       </div>
 
       <div className={`container ${styles.bottom}`}>
-        <p>&copy; {new Date().getFullYear()} StartupMedia. All rights reserved.</p>
+        <p>
+          &copy; {new Date().getFullYear()} StartupMedia. All rights reserved. <br/>
+          Built with 🧡 by <a href="/admin" className={styles.founder}>Ritik Raj Singh</a>.
+        </p>
       </div>
     </footer>
   );

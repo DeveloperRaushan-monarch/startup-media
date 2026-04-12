@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   description:
     "StartupMedia is where startup journeys, failures, and breakthroughs come to life. Real stories from real founders.",
   keywords: ["startup", "stories", "founder", "entrepreneurship", "tech"],
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     title: "StartupMedia — Stories That Inspire Builders",
     description:
@@ -19,17 +24,29 @@ export const metadata: Metadata = {
   },
 };
 
+import CustomCursor from "@/components/CustomCursor";
+import SearchModal from "@/components/SearchModal";
+import SmoothScrolling from "@/components/SmoothScrolling";
+import WelcomeSplash from "@/components/WelcomeSplash";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
-        <NavBar />
-        <main>{children}</main>
-        <Footer />
+        <WelcomeSplash />
+        <CustomCursor />
+        <SearchModal />
+        <SmoothScrolling>
+          <div className="app-reveal">
+            <NavBar />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </SmoothScrolling>
       </body>
     </html>
   );
